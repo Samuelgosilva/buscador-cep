@@ -10,20 +10,22 @@ function App() {
   const[input, setInput] = useState('')
   const[cep, setCep] = useState({})
 
-  async function handleSearch(){
+  const  handleSearch = async (event) =>{
     // 01310930/json/
-    if(input === ''){
-      alert('Preencha algum CEP')
-      return
-    }
-    try{
-      const response = await api.get(`${input}/json`)
-      setCep(response.data)
-      setInput('')  
-    }catch{
-      alert('Ops erro ao buscar')
-      setInput('')  
-    }
+    // if(cep === ''){
+    //   alert('Preencha algum CEP')
+    //   return
+    // }
+    // try{
+      if(event.target.value.length == 8){
+        const response = await api.get(`${event.target.value}/json`)
+        setCep(response.data)
+      }
+    //   setInput('')  
+    // }catch{
+    //   alert('Ops erro ao buscar')
+    //   setInput('')  
+    // }
   }
 
   return (
@@ -35,11 +37,11 @@ function App() {
     <input 
     type="text"
     placeholder="Digite seu CEP..."
-    value={input}
-    onChange={(e) => setInput(e.target.value)}
+    // value={input}
+    onChange={handleSearch}
     />
 
-    <button className="buttonSearch" onClick={handleSearch}>
+    <button className="buttonSearch" >
     <FiSearch size={25} color='#FFF'/>
     </button>
      </div>
